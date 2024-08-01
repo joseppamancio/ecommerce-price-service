@@ -39,6 +39,11 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<Price> prices;
 
+    /**
+     * This method is used to convert the object to a string
+     *
+     * @return The object as a string
+     */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);

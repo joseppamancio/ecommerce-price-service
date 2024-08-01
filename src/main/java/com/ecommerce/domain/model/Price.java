@@ -52,6 +52,11 @@ public class Price {
     @Column(name = "currency", columnDefinition = "varchar(255) default 'EUR'")
     private String currency;
 
+    /**
+     * This method is used to convert the object to a string
+     *
+     * @return The object as a string
+     */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);

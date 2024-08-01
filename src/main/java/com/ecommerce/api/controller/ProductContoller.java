@@ -2,7 +2,6 @@ package com.ecommerce.api.controller;
 
 import com.ecommerce.api.exception.ResourceNotFoundException;
 import com.ecommerce.api.service.ProductApi;
-import com.ecommerce.domain.model.ErrorResponse;
 import com.ecommerce.domain.model.Product;
 import com.ecommerce.domain.model.ProductRequest;
 import com.ecommerce.domain.model.ProductResponse;
@@ -30,6 +29,12 @@ public class ProductContoller implements ProductApi {
     @Autowired
     private ProductRepository productRepository;
 
+    /**
+     * This method is used to get a product by id
+     *
+     * @param id The product id
+     * @return The product
+     */
     @Override
     public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") Long id) {
         Optional<Product> product = productRepository.findById(id);
@@ -46,6 +51,11 @@ public class ProductContoller implements ProductApi {
         }
     }
 
+    /**
+     * This method is used to get all products
+     *
+     * @return The list of products
+     */
     @Override
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
         List<Product> products = productRepository.findAll();
@@ -60,6 +70,12 @@ public class ProductContoller implements ProductApi {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /**
+     * This method is used to update a product
+     *
+     * @param id ID of the product (required)
+     * @param productRequest Product to update (required)
+     */
     @Override
     public ResponseEntity<ProductResponse> updateProduct(@PathVariable("id") Long id, @Valid @RequestBody ProductRequest productRequest) {
         Optional<Product> productOptional = productRepository.findById(id);
@@ -81,6 +97,11 @@ public class ProductContoller implements ProductApi {
         }
     }
 
+    /**
+     * This method is used to create a product
+     *
+     * @param productRequest Product to create (required)
+     */
     @Override
     public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest productRequest) {
         Product product = Product.builder()
@@ -98,6 +119,11 @@ public class ProductContoller implements ProductApi {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    /**
+     * This method is used to delete a product
+     *
+     * @param id ID of the product (required)
+     */
     @Override
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id) {
         Optional<Product> productOptional = productRepository.findById(id);

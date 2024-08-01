@@ -29,6 +29,14 @@ public class PriceController implements PriceApi {
     @Autowired
     private PriceService priceService;
 
+    /**
+     * This method is used to get the applicable price for a given product, brand and application date
+     *
+     * @param productId       The product id
+     * @param brandId         The brand id
+     * @param applicationDate The application date
+     * @return The applicable price
+     */
     @Override
     public ResponseEntity<List<PriceResponse>> getPrices(
             @RequestParam Long productId,
