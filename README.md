@@ -66,3 +66,9 @@ You will have access to the ecommerce database through the H2 graphical interfac
 
 ## 📚 Documentation
 The API documentation was done using Swagger and can be accessed through the URL http://localhost:8080/ecommerce-price-service/swagger-ui.html.
+
+The resources folder contains:
+- collections: contains the Postman collection and environment.
+- api.yml: contains the API documentation in YAML format.
+- documentation: contains the API documentation in EMR and UML format.
+- db: contains the script for creating and inserting data into the H2 database.

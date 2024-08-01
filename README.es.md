@@ -68,3 +68,9 @@ Tendrá acceso a la base de datos ecommerce a través de la interfaz gráfica de
 
 ## 📚 Documentación
 La documentación de la API se realizó utilizando Swagger y se puede acceder a través de la URL http://localhost:8080/ecommerce-price-service/swagger-ui.html.
+
+La carpeta resources contiene:  
+- collections: contiene la colección y el entorno de Postman.
+- api.yml: contiene la documentación de la API en formato YAML.
+- documentation: contiene la documentación de la API en formato EMR y UML.
+- db: contiene el script de creación e inserción de datos en la base de datos H2.
