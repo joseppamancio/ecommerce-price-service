@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.Set;
 
 @Data
 @Entity
@@ -16,7 +17,7 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Price {
+public class Product {
 
     @Id
     @EqualsAndHashCode.Include
@@ -24,33 +25,19 @@ public class Price {
     private Long id;
 
     @NotBlank
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @NotBlank
     @Column(name = "brand_id", nullable = false)
     private Long brandId;
 
     @CreationTimestamp
-    @Column(name = "start_date")
-    private OffsetDateTime startDate;
+    @Column(name = "creation_date, nullable = false")
+    private OffsetDateTime creationDate;
 
-    @Column(name = "end_date")
-    private OffsetDateTime endDate;
-
-    @NotBlank
-    @Column(name = "price_list", nullable = false)
-    private int priceList;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
-
-    @Column(name = "priority", columnDefinition = "int default 0")
-    private int priority;
-
-    @NotBlank
-    @Column(name = "price")
-    private BigDecimal price;
-
-    @Column(name = "currency", columnDefinition = "varchar(255) default 'EUR'")
-    private String currency;
+    @OneToMany(mappedBy = "product")
+    private Set<Price> prices;
 
     @Override
     public String toString() {

@@ -2,8 +2,8 @@ package com.ecommerce.api.controller;
 
 import com.ecommerce.api.exception.ResourceNotFoundException;
 import com.ecommerce.api.service.PriceApi;
-import com.ecommerce.api.service.PriceService;
-import com.ecommerce.domain.model.DataResponse;
+import com.ecommerce.domain.model.PriceResponse;
+import com.ecommerce.domain.service.PriceService;
 import com.ecommerce.domain.model.Price;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.servers.Server;
@@ -30,7 +30,7 @@ public class PriceController implements PriceApi {
     private PriceService priceService;
 
     @Override
-    public ResponseEntity<List<DataResponse>> getPrices(
+    public ResponseEntity<List<PriceResponse>> getPrices(
             @RequestParam Long productId,
             @RequestParam Long brandId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate applicationDate) {
@@ -38,13 +38,13 @@ public class PriceController implements PriceApi {
         Optional<List<Price>> priceOptional = priceService.getApplicablePrice(productId, brandId, applicationDateTime);
 
         if (priceOptional.isPresent() && !priceOptional.get().isEmpty()) {
-            List<DataResponse> dataResponses = priceOptional.get().stream()
-                    .map(price -> DataResponse.builder()
+            List<PriceResponse> dataResponses = priceOptional.get().stream()
+                    .map(price -> PriceResponse.builder()
                             .brandId(price.getBrandId())
                             .startDate(price.getStartDate())
                             .endDate(price.getEndDate())
                             .priceList(price.getPriceList())
-                            .productId(price.getProductId())
+                            .productId(price.getProduct().getId())
                             .priority(price.getPriority())
                             .price(price.getPrice())
                             .currency(price.getCurrency())

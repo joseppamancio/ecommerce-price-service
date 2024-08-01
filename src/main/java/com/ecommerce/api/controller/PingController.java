@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @OpenAPIDefinition(servers = {@Server(url = "/ecommerce-price-service", description = "Ecommerce Price Service")})
 public class PingController implements PingApi {
 
+    /**
+     * This method is used to check the health of the service
+     */
     @Override
     public ResponseEntity<Ping200Response> ping() {
         return ResponseEntity.ok(Ping200Response.builder().message("Welcome to Ecommerce Price Service").build());

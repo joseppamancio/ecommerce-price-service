@@ -12,6 +12,9 @@ import java.util.Optional;
 
 public interface PriceRepository extends JpaRepository<Price, Long> {
 
-    @Query("SELECT p FROM Price p WHERE p.productId = :productId AND p.brandId = :brandId AND :applicationDate <= p.endDate AND :applicationDate >= p.startDate ORDER BY p.priority DESC")
+    /**
+     * Find the applicable price for a product and brand at a given date
+     */
+    @Query("SELECT p FROM Price p WHERE p.product.id = :productId AND p.brandId = :brandId AND :applicationDate <= p.endDate AND :applicationDate >= p.startDate ORDER BY p.priority DESC")
     Optional<List<Price>> findApplicablePrice(@Param("productId") Long productId, @Param("brandId") Long brandId, @Param("applicationDate") OffsetDateTime applicationDate);
 }

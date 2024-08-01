@@ -1,0 +1,302 @@
+@startuml
+class com.ecommerce.domain.model.ProductRequest {
+- String name
+- Long brandId
++ ProductRequest name(String)
++ String getName()
++ void setName(String)
++ ProductRequest brandId(Long)
++ Long getBrandId()
++ void setBrandId(Long)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+- String toIndentedString(Object)
+}
+
+
+class com.ecommerce.EcommercePriceServiceApplication {
++ {static} void main(String[])
+}
+
+interface com.ecommerce.api.service.PingApi {
+~ Optional<NativeWebRequest> getRequest()
+~ ResponseEntity<Ping200Response> ping()
+}
+
+interface com.ecommerce.api.service.PriceApi {
+~ Optional<NativeWebRequest> getRequest()
+~ ResponseEntity<PriceResponse> createPrice(PriceRequest)
+~ ResponseEntity<Void> deletePrice(Long)
+~ ResponseEntity<PriceResponse> getPriceById(Long)
+~ ResponseEntity<List<PriceResponse>> getPrices(Long,Long,LocalDate)
+~ ResponseEntity<PriceResponse> updatePrice(Long,PriceRequest)
+}
+
+class com.ecommerce.api.exception.GlobalExceptionHandler {
++ ResponseEntity<?> globalExceptionHandler(Exception,WebRequest)
++ ResponseEntity<?> resourceNotFoundException(ResourceNotFoundException,WebRequest)
+}
+
+class com.ecommerce.domain.model.Ping200Response {
+- String message
++ Ping200Response message(String)
++ String getMessage()
++ void setMessage(String)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+- String toIndentedString(Object)
+}
+
+
+class com.ecommerce.api.exception.ResourceNotFoundException {
+}
+class com.ecommerce.api.controller.PriceController {
+- PriceService priceService
++ ResponseEntity<List<PriceResponse>> getPrices(Long,Long,LocalDate)
+}
+
+
+class com.ecommerce.api.controller.PingController {
++ ResponseEntity<Ping200Response> ping()
+}
+
+class com.ecommerce.api.config.security.PasswordEncoderConfig {
++ PasswordEncoder passwordEncoder()
+}
+
+class com.ecommerce.api.controller.ProductContoller {
+- ProductRepository productRepository
++ ResponseEntity<ProductResponse> getProductById(Long)
++ ResponseEntity<List<ProductResponse>> getAllProducts()
++ ResponseEntity<ProductResponse> updateProduct(Long,ProductRequest)
++ ResponseEntity<ProductResponse> createProduct(ProductRequest)
++ ResponseEntity<Void> deleteProduct(Long)
+}
+
+
+class com.ecommerce.domain.model.PriceRequest {
+- Long brandId
+- OffsetDateTime startDate
+- OffsetDateTime endDate
+- Integer priceList
+- ProductResponse product
+- Integer priority
+- BigDecimal price
+- String currency
++ PriceRequest brandId(Long)
++ Long getBrandId()
++ void setBrandId(Long)
++ PriceRequest startDate(OffsetDateTime)
++ OffsetDateTime getStartDate()
++ void setStartDate(OffsetDateTime)
++ PriceRequest endDate(OffsetDateTime)
++ OffsetDateTime getEndDate()
++ void setEndDate(OffsetDateTime)
++ PriceRequest priceList(Integer)
++ Integer getPriceList()
++ void setPriceList(Integer)
++ PriceRequest product(ProductResponse)
++ ProductResponse getProduct()
++ void setProduct(ProductResponse)
++ PriceRequest priority(Integer)
++ Integer getPriority()
++ void setPriority(Integer)
++ PriceRequest price(BigDecimal)
++ BigDecimal getPrice()
++ void setPrice(BigDecimal)
++ PriceRequest currency(String)
++ String getCurrency()
++ void setCurrency(String)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+- String toIndentedString(Object)
+}
+
+
+class com.ecommerce.domain.model.ProductResponse {
+- Long id
+- String name
+- Long brandId
+- OffsetDateTime creationDate
++ ProductResponse id(Long)
++ Long getId()
++ void setId(Long)
++ ProductResponse name(String)
++ String getName()
++ void setName(String)
++ ProductResponse brandId(Long)
++ Long getBrandId()
++ void setBrandId(Long)
++ ProductResponse creationDate(OffsetDateTime)
++ OffsetDateTime getCreationDate()
++ void setCreationDate(OffsetDateTime)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+- String toIndentedString(Object)
+}
+
+
+class com.ecommerce.domain.service.ProductService {
+- ProductRepository productRepository
++ List<Product> findAll()
++ Optional<Product> findById(Long)
++ Product save(Product)
++ void deleteById(Long)
+}
+
+
+interface com.ecommerce.domain.repository.PriceRepository {
+~ Optional<List<Price>> findApplicablePrice(Long,Long,OffsetDateTime)
+}
+
+class com.ecommerce.domain.service.PriceService {
+- {static} Logger logger
+- PriceRepository priceRepository
++ List<Price> findAll()
++ Optional<Price> findById(Long)
++ Price save(Price)
++ void deleteById(Long)
++ Optional<List<Price>> getApplicablePrice(Long,Long,OffsetDateTime)
+}
+
+
+class com.ecommerce.EcommercePriceServiceApplicationTests {
+- TestRestTemplate restTemplate
+- String apiUserName
+- String apiUserPassword
+- HttpEntity<String> createAuthEntity()
++ void test1()
++ void test2()
++ void test3()
++ void test4()
++ void test5()
+}
+
+
+interface com.ecommerce.domain.repository.ProductRepository {
+}
+class com.ecommerce.api.config.security.SecurityConfig {
+- String apiUserName
+- String apiUserPassword
+- String pathPing
+- PasswordEncoder passwordEncoder
++ SecurityFilterChain securityFilterChain(HttpSecurity)
++ UserDetailsService userDetailsService()
+}
+
+
+class com.ecommerce.api.exception.ErrorDetails {
+- String message
+- String details
+}
+
+class com.ecommerce.domain.model.Product {
+- Long id
+- String name
+- Long brandId
+- OffsetDateTime creationDate
+- Set<Price> prices
++ String toString()
+}
+
+
+class com.ecommerce.domain.model.PriceResponse {
+- Long id
+- Long brandId
+- OffsetDateTime startDate
+- OffsetDateTime endDate
+- Integer priceList
+- Long productId
+- Integer priority
+- BigDecimal price
+- String currency
++ PriceResponse id(Long)
++ Long getId()
++ void setId(Long)
++ PriceResponse brandId(Long)
++ Long getBrandId()
++ void setBrandId(Long)
++ PriceResponse startDate(OffsetDateTime)
++ OffsetDateTime getStartDate()
++ void setStartDate(OffsetDateTime)
++ PriceResponse endDate(OffsetDateTime)
++ OffsetDateTime getEndDate()
++ void setEndDate(OffsetDateTime)
++ PriceResponse priceList(Integer)
++ Integer getPriceList()
++ void setPriceList(Integer)
++ PriceResponse productId(Long)
++ Long getProductId()
++ void setProductId(Long)
++ PriceResponse priority(Integer)
++ Integer getPriority()
++ void setPriority(Integer)
++ PriceResponse price(BigDecimal)
++ BigDecimal getPrice()
++ void setPrice(BigDecimal)
++ PriceResponse currency(String)
++ String getCurrency()
++ void setCurrency(String)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+- String toIndentedString(Object)
+}
+
+
+interface com.ecommerce.api.service.ProductApi {
+~ Optional<NativeWebRequest> getRequest()
+~ ResponseEntity<ProductResponse> createProduct(ProductRequest)
+~ ResponseEntity<Void> deleteProduct(Long)
+~ ResponseEntity<List<ProductResponse>> getAllProducts()
+~ ResponseEntity<ProductResponse> getProductById(Long)
+~ ResponseEntity<ProductResponse> updateProduct(Long,ProductRequest)
+}
+
+class com.ecommerce.domain.model.Price {
+- Long id
+- Long brandId
+- OffsetDateTime startDate
+- OffsetDateTime endDate
+- int priceList
+- Product product
+- int priority
+- BigDecimal price
+- String currency
++ String toString()
+}
+
+
+class com.ecommerce.domain.model.ErrorResponse {
+- Integer code
+- String message
++ ErrorResponse code(Integer)
++ Integer getCode()
++ void setCode(Integer)
++ ErrorResponse message(String)
++ String getMessage()
++ void setMessage(String)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+- String toIndentedString(Object)
+}
+
+
+class com.ecommerce.api.service.ApiUtil {
++ {static} void setExampleResponse(NativeWebRequest,String,String)
+}
+
+
+
+com.ecommerce.api.exception.RuntimeException <|-- com.ecommerce.api.exception.ResourceNotFoundException
+com.ecommerce.api.service.PriceApi <|.. com.ecommerce.api.controller.PriceController
+com.ecommerce.api.service.PingApi <|.. com.ecommerce.api.controller.PingController
+com.ecommerce.api.service.ProductApi <|.. com.ecommerce.api.controller.ProductContoller
+org.springframework.data.jpa.repository.JpaRepository <|-- com.ecommerce.domain.repository.PriceRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- com.ecommerce.domain.repository.ProductRepository
+@enduml

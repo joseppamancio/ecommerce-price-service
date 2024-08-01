@@ -1,4 +1,4 @@
-package com.ecommerce.api.service;
+package com.ecommerce.domain.service;
 
 import com.ecommerce.api.exception.ResourceNotFoundException;
 import com.ecommerce.domain.model.Price;
@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +18,30 @@ public class PriceService {
     @Autowired
     private PriceRepository priceRepository;
 
+    public List<Price> findAll() {
+        return priceRepository.findAll();
+    }
+
+    public Optional<Price> findById(Long id) {
+        return priceRepository.findById(id);
+    }
+
+    public Price save(Price price) {
+        return priceRepository.save(price);
+    }
+
+    public void deleteById(Long id) {
+        priceRepository.deleteById(id);
+    }
+
+    /**
+     * Fetches the applicable price for the given product, brand and application date.
+     *
+     * @param productId       The product id.
+     * @param brandId         The brand id.
+     * @param applicationDate The application date.
+     * @return The applicable price.
+     */
     public Optional<List<Price>> getApplicablePrice(Long productId, Long brandId, OffsetDateTime applicationDate) {
         logger.info("Fetching applicable price for productId: {}, brandId: {}, date: {}", productId, brandId, applicationDate);
         Optional<List<Price>> prices = priceRepository.findApplicablePrice(productId, brandId, applicationDate);

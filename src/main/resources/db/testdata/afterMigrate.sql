@@ -1,4 +1,9 @@
-delete from price;
+-- src/main/resources/db/testdata/afterMigrate.sql
+DELETE FROM price;
+DELETE FROM product;
+
+INSERT INTO product (id, name, brand_id, creation_date) VALUES
+(35455, 'Product A', 1, '2020-06-14T00:00:00');
 
 INSERT INTO price (brand_id, start_date, end_date, price_list, product_id, priority, price, currency) VALUES
 (1, '2020-06-14T00:00:00', '2020-12-31T23:59:59', 1, 35455, 0, 35.50, 'EUR'),

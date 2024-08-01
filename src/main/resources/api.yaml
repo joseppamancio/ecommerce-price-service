@@ -5,6 +5,151 @@ info:
   description: API to get prices
 
 paths:
+  /api/products:
+    get:
+      summary: Get all products
+      operationId: getAllProducts
+      tags:
+        - product
+      responses:
+        '200':
+          description: Products found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/productResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+    post:
+      summary: Create a new product
+      operationId: createProduct
+      tags:
+        - product
+      requestBody:
+        description: Product to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/productRequest"
+      responses:
+        '201':
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/productResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
+  /api/products/{id}:
+    get:
+      summary: Get a product by ID
+      operationId: getProductById
+      tags:
+        - product
+      parameters:
+        - name: id
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: long
+      responses:
+        '200':
+          description: Product found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/productResponse"
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+    put:
+      summary: Update a product by ID
+      operationId: updateProduct
+      tags:
+        - product
+      parameters:
+        - name: id
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: long
+      requestBody:
+        description: Product to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/productRequest"
+      responses:
+        '200':
+          description: Product updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/productResponse"
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+    delete:
+      summary: Delete a product by ID
+      operationId: deleteProduct
+      tags:
+        - product
+      parameters:
+        - name: id
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: long
+      responses:
+        '204':
+          description: Product deleted
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
   /api/prices:
     get:
       summary: Get price using productId, brandId and date
@@ -39,7 +184,130 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/dataResponse"
+                  $ref: "#/components/schemas/priceResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+    post:
+      summary: Create a new price
+      operationId: createPrice
+      tags:
+        - price
+      requestBody:
+        description: Price to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/priceRequest"
+      responses:
+        '201':
+          description: Price created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/priceResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
+  /api/prices/{id}:
+    get:
+      summary: Get a price by ID
+      operationId: getPriceById
+      tags:
+        - price
+      parameters:
+        - name: id
+          in: path
+          description: ID of the price
+          required: true
+          schema:
+            type: long
+      responses:
+        '200':
+          description: Price found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/priceResponse"
+        '404':
+          description: Price not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+    put:
+      summary: Update a price by ID
+      operationId: updatePrice
+      tags:
+        - price
+      parameters:
+        - name: id
+          in: path
+          description: ID of the price
+          required: true
+          schema:
+            type: long
+      requestBody:
+        description: Price to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/priceRequest"
+      responses:
+        '200':
+          description: Price updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/priceResponse"
+        '404':
+          description: Price not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+    delete:
+      summary: Delete a price by ID
+      operationId: deletePrice
+      tags:
+        - price
+      parameters:
+        - name: id
+          in: path
+          description: ID of the price
+          required: true
+          schema:
+            type: long
+      responses:
+        '204':
+          description: Price deleted
+        '404':
+          description: Price not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
         default:
           description: unexpected error
           content:
@@ -67,22 +335,67 @@ paths:
 
 components:
   schemas:
-    # RESPONSES
-    dataResponse:
+    # REQUESTS
+    productRequest:
       type: object
       properties:
-        productId:
-          type: long
+        name:
+          type: string
         brandId:
           type: long
-        priceList:
-          type: integer
+    priceRequest:
+      type: object
+      properties:
+        brandId:
+          type: long
         startDate:
           type: string
           format: date-time
         endDate:
           type: string
           format: date-time
+        priceList:
+          type: integer
+        product:
+          $ref: "#/components/schemas/productResponse"
+        priority:
+          type: integer
+        price:
+          type: number
+          format: bigdecimal
+        currency:
+          type: string
+
+    # RESPONSES
+    productResponse:
+      type: object
+      properties:
+        id:
+          type: long
+        name:
+          type: string
+        brandId:
+          type: long
+        creationDate:
+          type: string
+          format: date-time
+    priceResponse:
+      type: object
+      properties:
+        id:
+          type: long
+        brandId:
+          type: long
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        priceList:
+          type: integer
+        productId:
+          type: long
         priority:
           type: integer
         price:
