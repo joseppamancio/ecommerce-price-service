@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Ecommerce API
+  description: API to get prices
+
+paths:
+  /api/prices:
+    get:
+      summary: Get price using productId, brandId and date
+      operationId: getPrices
+      tags:
+        - price
+      parameters:
+        - name: productId
+          in: query
+          description: ID of the product
+          required: true
+          schema:
+            type: long
+        - name: brandId
+          in: query
+          description: ID of the brand
+          required: true
+          schema:
+            type: long
+        - in: query
+          name: applicationDate
+          schema:
+            type: string
+            format: date
+          required: true
+          description: Date of the application
+      responses:
+        '200':
+          description: Prices found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/dataResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
+  /ping:
+    get:
+      summary: Check is application is up and running.
+      operationId: ping
+      tags:
+        - ping
+      responses:
+        "200":
+          description: Ping Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Welcome to Ecommerce Price Service"
+
+components:
+  schemas:
+    # RESPONSES
+    dataResponse:
+      type: object
+      properties:
+        productId:
+          type: long
+        brandId:
+          type: long
+        priceList:
+          type: integer
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        priority:
+          type: integer
+        price:
+          type: number
+          format: bigdecimal
+        currency:
+          type: string
+
+    # ERROR RESPONSE
+    errorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+          example: 404
+        message:
+          type: string
+          description: Error message
+          example: "Price not found"
