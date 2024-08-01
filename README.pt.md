@@ -73,3 +73,6 @@ A pasta resources contém:
 - api.yml: contém a documentação da API em formato YAML.
 - documantation: contém a documentação da API em formato EMR e UML.
 - db: contém o script de criação e inserção de dados na base de dados H2.
+
+# 🎥 Vídeo de demonstração
+https://github.com/user-attachments/assets/9940d92b-0e0b-4b3e-8821-d8e68003f935
