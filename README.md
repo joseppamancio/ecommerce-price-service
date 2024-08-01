@@ -72,3 +72,7 @@ The resources folder contains:
 - api.yml: contains the API documentation in YAML format.
 - documentation: contains the API documentation in EMR and UML format.
 - db: contains the script for creating and inserting data into the H2 database.
+
+# 🎥 Demonstration Video
+https://github.com/user-attachments/assets/9940d92b-0e0b-4b3e-8821-d8e68003f935
+
