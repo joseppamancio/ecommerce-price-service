@@ -74,3 +74,6 @@ La carpeta resources contiene:
 - api.yml: contiene la documentación de la API en formato YAML.
 - documentation: contiene la documentación de la API en formato EMR y UML.
 - db: contiene el script de creación e inserción de datos en la base de datos H2.
+
+# 🎥 Video de Demostración
+https://github.com/user-attachments/assets/9940d92b-0e0b-4b3e-8821-d8e68003f935
