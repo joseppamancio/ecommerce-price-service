@@ -1,0 +1,110 @@
+@startuml
+interface domain.repository.PriceRepository {
+~ Optional<List<Price>> findApplicablePrice(Long,Long,OffsetDateTime)
+}
+
+
+class domain.service.PriceService {
+- {static} Logger logger
+- PriceRepository priceRepository
++ Optional<List<Price>> getApplicablePrice(Long,Long,OffsetDateTime)
+}
+
+
+
+
+class domain.model.Price {
+- Long brandId
+- Integer priceList
+- Long productId
+- OffsetDateTime startDate
+- OffsetDateTime endDate
+- Integer priority
+- BigDecimal price
+- String currency
++ String toString()
+}
+
+
+interface api.service.PriceApi {
+~ Optional<NativeWebRequest> getRequest()
+~ ResponseEntity<List<PriceResponse>> getPrices(Long,Long,LocalDate)
+}
+
+class domain.model.PriceResponse {
+- Long id
+- Long brandId
+- OffsetDateTime startDate
+- OffsetDateTime endDate
+- Integer priceList
+- Long productId
+- Integer priority
+- BigDecimal price
+- String currency
+- String toIndentedString(Object)
+}
+
+
+interface api.service.PingApi {
+~ Optional<NativeWebRequest> getRequest()
+~ ResponseEntity<Ping200Response> ping()
+}
+
+
+class api.controller.PriceController {
+- PriceService priceService
++ ResponseEntity<List<PriceResponse>> getPrices(Long,Long,LocalDate)
+}
+
+
+class domain.model.PriceRequest {
+- Long brandId
+- OffsetDateTime startDate
+- OffsetDateTime endDate
+- Integer priceList
+- Long productId
+- Integer priority
+- BigDecimal price
+- String currency
+- String toIndentedString(Object)
+}
+
+class domain.model.ErrorResponse {
+- Integer code
+- String message
++ ErrorResponse code(Integer)
++ Integer getCode()
++ void setCode(Integer)
++ ErrorResponse message(String)
++ String getMessage()
++ void setMessage(String)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+- String toIndentedString(Object)
+}
+
+
+class domain.model.PriceId {
+- Long brandId
+- Integer priceList
+- Long productId
+}
+
+class domain.model.Ping200Response {
+- String message
++ Ping200Response message(String)
++ String getMessage()
++ void setMessage(String)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+- String toIndentedString(Object)
+}
+
+
+
+
+api.service.PriceApi <|.. api.controller.PriceController
+api.service.PingApi <|.. api.controller.PingController
+@enduml

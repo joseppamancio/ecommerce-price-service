@@ -1,0 +1,296 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Ecommerce API
+  description: API to get prices
+
+paths:
+  /api/prices:
+    get:
+      summary: Get price using productId, brandId, and date
+      operationId: getPrices
+      tags:
+        - price
+      parameters:
+        - name: productId
+          in: query
+          description: ID of the product
+          required: true
+          schema:
+            type: long
+        - name: brandId
+          in: query
+          description: ID of the brand
+          required: true
+          schema:
+            type: long
+        - name: applicationDate
+          in: query
+          description: Date of the application
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Price found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/priceResponse"
+        '404':
+          description: Price not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
+  /api/products:
+    get:
+      summary: Get All Products
+      operationId: getProducts
+      tags:
+        - product
+      responses:
+        '200':
+          description: Product found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/productResponse"
+        '404':
+          description: Products not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+  /api/products/{productId}:
+    get:
+      summary: Get Product using productId
+      operationId: getProduct
+      tags:
+        - product
+      parameters:
+        - name: productId
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: long
+      responses:
+        '200':
+          description: Product found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/productResponse"
+        '404':
+          description: Products not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
+  /api/brands:
+    get:
+      summary: Get All Brands
+      operationId: getBrands
+      tags:
+        - brand
+      responses:
+        '200':
+          description: Brand found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/brandResponse"
+        '404':
+          description: Brand not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+  /api/brands/{brandId}:
+    get:
+      summary: Get Brand using brandId
+      operationId: getBrand
+      tags:
+        - brand
+      parameters:
+        - name: brandId
+          in: path
+          description: ID of the brand
+          required: true
+          schema:
+            type: long
+      responses:
+        '200':
+          description: Brand found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/brandResponse"
+        '404':
+          description: Brand not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorResponse"
+
+  /ping:
+    get:
+      summary: Check if application is up and running.
+      operationId: ping
+      tags:
+        - ping
+      responses:
+        "200":
+          description: Ping Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Welcome to Ecommerce Price Service"
+
+components:
+  schemas:
+    # REQUESTS
+    priceRequest:
+      type: object
+      properties:
+        brandId:
+          type: long
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        priceList:
+          type: integer
+        productId:
+          type: long
+        priority:
+          type: integer
+        price:
+          type: number
+          format: bigdecimal
+        currency:
+          type: string
+
+    productRequest:
+      type: object
+      properties:
+        id:
+          type: long
+        name:
+          type: string
+        description:
+          type: string
+
+    brandRequest:
+      type: object
+      properties:
+        id:
+          type: long
+        name:
+          type: string
+
+    # RESPONSES
+    priceResponse:
+      type: object
+      properties:
+        id:
+          type: long
+        brandId:
+          type: long
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        priceList:
+          type: integer
+        productId:
+          type: long
+        priority:
+          type: integer
+        price:
+          type: number
+          format: bigdecimal
+        currency:
+          type: string
+
+    productResponse:
+        type: object
+        properties:
+          id:
+            type: long
+          name:
+            type: string
+          brandId:
+            type: long
+          creationDate:
+            type: string
+            format: date-time
+
+    brandResponse:
+      type: object
+      properties:
+        id:
+          type: long
+        name:
+          type: string
+
+    # ERROR RESPONSE
+    errorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+          example: 404
+        message:
+          type: string
+          description: Error message
+          example: "Price not found"
